@@ -20,7 +20,8 @@ return [
         ],
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories'  => [
-            // Fully\Qualified\ClassName::class => Fully\Qualified\FactoryName::class,
+			\Doctrine\ORM\EntityManager::class => \ContainerInteropDoctrine\EntityManagerFactory::class,
+			\App\Handler\PingHandler::class => \Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory::class
         ],
     ],
 ];

@@ -8,3 +8,13 @@ services:
      - "8080:80"
     volumes:
      - .:/var/www
+
+  database:
+    image: mariadb:latest
+    volumes:
+      - database:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_DATABASE: test
+volumes:
+  database:

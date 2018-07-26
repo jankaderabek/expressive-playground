@@ -10,4 +10,9 @@ RUN apt-get update \
   | php -- --install-dir=/usr/local/bin --filename=composer \
  && echo "AllowEncodedSlashes On" >> /etc/apache2/apache2.conf
 
+
+RUN docker-php-ext-install \
+	pdo_mysql
+
+
 WORKDIR /var/www

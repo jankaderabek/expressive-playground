@@ -32,12 +32,15 @@ class ConfigProvider
     public function getDependencies() : array
     {
         return [
-            'invokables' => [
-                Handler\PingHandler::class => Handler\PingHandler::class,
-            ],
+//            'invokables' => [
+//                Handler\PingHandler::class => Handler\PingHandler::class,
+//            ],
             'factories'  => [
                 Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
             ],
+			'abstract_factories' => [
+//				\Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory::class
+			],
         ];
     }
 
