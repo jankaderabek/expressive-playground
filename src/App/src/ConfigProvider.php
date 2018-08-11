@@ -37,6 +37,8 @@ class ConfigProvider
 //            ],
             'factories'  => [
                 Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
+				\App\Auth\Handler\RegisterHandler::class => \Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory::class,
+				\App\Auth\Handler\LoginHandler::class => \Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory::class
             ],
 			'abstract_factories' => [
 //				\Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory::class

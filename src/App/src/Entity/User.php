@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User implements \JsonSerializable
 {
+
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(name="id", type="integer")
@@ -19,25 +20,44 @@ class User implements \JsonSerializable
 	private $id;
 
 	/**
-	 * @ORM\Column(name="name", type="string", length=32)
+	 * @ORM\Column(name="name", type="string", unique=true)
 	 * @var string
 	 */
-	private $name;
+	private $email;
 
 	/**
-	 * Application constructor.
-	 * @param $name
+	 * @ORM\Column(name="password", type="string")
+	 * @var string
 	 */
-	public function __construct($name)
+	private $password;
+
+
+	public function __construct(string $email, string $password)
 	{
-		$this->name = $name;
+
+		$this->email = $email;
+		$this->password = $password;
 	}
+
+
+	public function getEmail(): string
+	{
+		return $this->email;
+	}
+
+
+	public function getPassword(): string
+	{
+		return $this->password;
+	}
+
 
 	public function jsonSerialize()
 	{
 		return [
 			'id' => $this->id,
-			'name' => $this->name
+			'name' => $this->email,
+			'password' => $this->password,
 		];
 	}
 }

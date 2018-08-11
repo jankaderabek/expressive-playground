@@ -35,4 +35,22 @@ use Zend\Expressive\MiddlewareFactory;
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
+
+    $app->post(
+		'/auth/register',
+		[
+			Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware::class,
+			\App\Auth\Handler\RegisterHandler::class
+		],
+		'auth.register'
+	);
+
+	$app->post(
+		'/auth/login',
+		[
+			Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware::class,
+			\App\Auth\Handler\LoginHandler::class
+		],
+		'auth.login'
+	);
 };

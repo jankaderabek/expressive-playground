@@ -39,6 +39,7 @@
     "require": {
         "php": "^7.1",
         "dasprid/container-interop-doctrine": "^1.1",
+        "firebase/php-jwt": "^5.0",
         "tuupola/cors-middleware": "^0.7.0",
         "zendframework/zend-component-installer": "^2.1.1",
         "zendframework/zend-config-aggregator": "^1.0",
