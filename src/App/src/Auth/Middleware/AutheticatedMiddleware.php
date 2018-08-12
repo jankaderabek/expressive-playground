@@ -53,7 +53,7 @@ class AutheticatedMiddleware implements \Psr\Http\Server\MiddlewareInterface
 
     private function createUnauthorizedResponse(string $details): JsonResponse
     {
-        return new JsonResponse(['message' => 'Unauthorized user' . $details], 400);
+        return new JsonResponse(['message' => 'Unauthorized user' . $details], 401);
     }
 
 }
