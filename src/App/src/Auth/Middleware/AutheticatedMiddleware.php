@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace App\Auth\Middleware;
 
@@ -21,13 +21,13 @@ class AutheticatedMiddleware implements \Psr\Http\Server\MiddlewareInterface
     }
 
     public function process(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Server\RequestHandlerInterface $handler): \Psr\Http\Message\ResponseInterface
-	{
-		$authorizationHeaders = $request->getHeader('Authorization');
-		$authorizationHeader = current($authorizationHeaders);
+    {
+        $authorizationHeaders = $request->getHeader('Authorization');
+        $authorizationHeader = current($authorizationHeaders);
 
-		if (!$authorizationHeader) {
-			return $this->createUnauthorizedResponse("Missing header");
-		}
+        if (!$authorizationHeader) {
+            return $this->createUnauthorizedResponse("Missing header");
+        }
 
         $authorizationToken = $this->getTokenFromAuthorizationHeader($authorizationHeader);
 
@@ -38,23 +38,23 @@ class AutheticatedMiddleware implements \Psr\Http\Server\MiddlewareInterface
         }
 
         return $handler->handle($request->withAttribute(\App\Entity\User::class, $user));
-	}
+    }
 
 
-	private function getTokenFromAuthorizationHeader(string $authorizationHeader): ?string
-	{
-		if ( ! preg_match("/Bearer\s+(.*)$/i", $authorizationHeader, $matches)) {
-			return null;
-		}
+    private function getTokenFromAuthorizationHeader(string $authorizationHeader): ?string
+    {
+        if (!preg_match("/Bearer\s+(.*)$/i", $authorizationHeader, $matches)) {
+            return null;
+        }
 
-		return $matches[1];
-	}
+        return $matches[1];
+    }
 
 
-	private function createUnauthorizedResponse(string $details): JsonResponse
-	{
-		return new JsonResponse(['message' => 'Unauthorized user' . $details], 400);
-	}
+    private function createUnauthorizedResponse(string $details): JsonResponse
+    {
+        return new JsonResponse(['message' => 'Unauthorized user' . $details], 400);
+    }
 
 }
 

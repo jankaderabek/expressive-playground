@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace App\Auth\Handler;
 
@@ -8,10 +8,10 @@ class LoginHandler implements \Psr\Http\Server\RequestHandlerInterface
 {
 
 
-	/**
-	 * @var \Doctrine\ORM\EntityManager
-	 */
-	private $entityManager;
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $entityManager;
 
     /**
      * @var \App\Auth\User\UserExchangeService
@@ -20,37 +20,37 @@ class LoginHandler implements \Psr\Http\Server\RequestHandlerInterface
 
 
     public function __construct(
-		\Doctrine\ORM\EntityManager $entityManager,
+        \Doctrine\ORM\EntityManager $entityManager,
         \App\Auth\User\UserExchangeService $userExchangeService
-	)
-	{
-		$this->entityManager = $entityManager;
+    )
+    {
+        $this->entityManager = $entityManager;
         $this->userExchangeService = $userExchangeService;
     }
 
 
-	public function handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
-	{
-		$userRepository = $this->entityManager->getRepository(\App\Entity\User::class);
-		$data = $request->getParsedBody();
+    public function handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
+    {
+        $userRepository = $this->entityManager->getRepository(\App\Entity\User::class);
+        $data = $request->getParsedBody();
 
-		/** @var \App\Entity\User $user */
-		$user = $userRepository->findOneBy(['email' => $data['email']]);
+        /** @var \App\Entity\User $user */
+        $user = $userRepository->findOneBy(['email' => $data['email']]);
 
-		if ( ! $user) {
-			return new JsonResponse(['message' => 'Unknown user'], 400);
-		}
+        if (!$user) {
+            return new JsonResponse(['message' => 'Unknown user'], 400);
+        }
 
-		if ( ! password_verify($data['password'], $user->getPassword())) {
-			return new JsonResponse(['message' => 'Invalid credentials'], 400);
-		}
+        if (!password_verify($data['password'], $user->getPassword())) {
+            return new JsonResponse(['message' => 'Invalid credentials'], 400);
+        }
 
-		return new JsonResponse(
-		    [
+        return new JsonResponse(
+            [
                 'token' => $this->userExchangeService->createToken($user),
             ]
         );
-	}
+    }
 
 
 }

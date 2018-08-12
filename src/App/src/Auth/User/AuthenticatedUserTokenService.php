@@ -15,7 +15,6 @@ class AuthenticatedUserTokenService
         return \Firebase\JWT\JWT::encode($user, self::KEY);
     }
 
-
     /**
      * @throws InvalidUserToken
      */
