@@ -17,49 +17,15 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 
 class HomePageHandlerTest extends TestCase
 {
-    /** @var ContainerInterface|ObjectProphecy */
-    protected $container;
-
-    /** @var RouterInterface|ObjectProphecy */
-    protected $router;
-
-    protected function setUp()
-    {
-        $this->container = $this->prophesize(ContainerInterface::class);
-        $this->router    = $this->prophesize(RouterInterface::class);
-    }
 
     public function testReturnsJsonResponseWhenNoTemplateRendererProvided()
     {
-        $homePage = new HomePageHandler(
-            $this->router->reveal(),
-            null,
-            get_class($this->container->reveal())
-        );
+        $homePage = new HomePageHandler();
+
         $response = $homePage->handle(
             $this->prophesize(ServerRequestInterface::class)->reveal()
         );
 
         $this->assertInstanceOf(JsonResponse::class, $response);
-    }
-
-    public function testReturnsHtmlResponseWhenTemplateRendererProvided()
-    {
-        $renderer = $this->prophesize(TemplateRendererInterface::class);
-        $renderer
-            ->render('app::home-page', Argument::type('array'))
-            ->willReturn('');
-
-        $homePage = new HomePageHandler(
-            $this->router->reveal(),
-            $renderer->reveal(),
-            get_class($this->container->reveal())
-        );
-
-        $response = $homePage->handle(
-            $this->prophesize(ServerRequestInterface::class)->reveal()
-        );
-
-        $this->assertInstanceOf(HtmlResponse::class, $response);
     }
 }
