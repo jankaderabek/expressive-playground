@@ -41,8 +41,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 		[
 			Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware::class,
 			\App\Auth\Handler\RegisterHandler::class
-		],
-		'auth.register'
+		]
 	);
 
 	$app->post(
@@ -52,5 +51,14 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 			\App\Auth\Handler\LoginHandler::class
 		],
 		'auth.login'
+	);
+
+	$app->get(
+		'/auth/profile',
+		[
+			Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware::class,
+			\App\Auth\Handler\ProfileHandler::class
+		],
+		'auth.profile'
 	);
 };

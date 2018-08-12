@@ -41,11 +41,18 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - $app->pipe('/api', $apiMiddleware);
     // - $app->pipe('/docs', $apiDocMiddleware);
     // - $app->pipe('/files', $filesMiddleware);
-	$app->pipe(new Tuupola\Middleware\CorsMiddleware());
+
+	$app->pipe(new \Tuupola\Middleware\CorsMiddleware([
+		"origin" => ["*"],
+		"methods" => ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+		"headers.allow" => ["Content-Type", "Authorization", "X-Requested-With"],
+	]));
+
 
     // Register the routing middleware in the middleware pipeline.
     // This middleware registers the Zend\Expressive\Router\RouteResult request attribute.
     $app->pipe(RouteMiddleware::class);
+    $app->pipe(\Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware::class);
 
     // The following handle routing failures for common conditions:
     // - HEAD request but no routes answer that method

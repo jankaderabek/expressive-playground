@@ -28,7 +28,7 @@ class RegisterHandler implements \Psr\Http\Server\RequestHandlerInterface
 
 
 		if ($userRepository->findOneBy(['email' => $data['email']])) {
-			return new JsonResponse(['error' => 'already exists']);
+			return new JsonResponse(['message' => 'Email is already used'], 400);
 		}
 
 		$user = new \App\Entity\User(

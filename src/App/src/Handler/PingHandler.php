@@ -27,11 +27,6 @@ class PingHandler implements RequestHandlerInterface
 
 	public function handle(ServerRequestInterface $request) : ResponseInterface
     {
-		$user = new App\Entity\User("new user");
-		$this->entityManager->persist($user);
-		$this->entityManager->flush();
-
-
-        return new JsonResponse(['ack' => $this->entityManager->getRepository(\App\Entity\User::class)->findAll()]);
+        return new JsonResponse(['ack' => (new \DateTime())->format('Y-m-d H:i:s')]);
     }
 }

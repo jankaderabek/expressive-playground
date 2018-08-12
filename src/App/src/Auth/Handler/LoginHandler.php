@@ -32,11 +32,11 @@ class LoginHandler implements \Psr\Http\Server\RequestHandlerInterface
 
 
 		if ( ! $user) {
-			return new JsonResponse(['error' => 'unkknown user']);
+			return new JsonResponse(['message' => 'unkknown user'], 400);
 		}
 
 		if ( ! password_verify($data['password'], $user->getPassword())) {
-			return new JsonResponse(['error' => 'invalid credentials']);
+			return new JsonResponse(['message' => 'invalid credentials'], 400);
 		}
 
 		return new JsonResponse(['user' => $user, 'token' => \Firebase\JWT\JWT::encode($user, 'key')]);

@@ -56,7 +56,7 @@ class User implements \JsonSerializable
 	{
 		return [
 			'id' => $this->id,
-			'name' => $this->email,
+			'email' => $this->email,
 			'password' => $this->password,
 		];
 	}
