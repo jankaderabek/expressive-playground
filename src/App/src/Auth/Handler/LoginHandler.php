@@ -13,13 +13,20 @@ class LoginHandler implements \Psr\Http\Server\RequestHandlerInterface
 	 */
 	private $entityManager;
 
+    /**
+     * @var \App\Auth\User\UserExchangeService
+     */
+    private $userExchangeService;
 
-	public function __construct(
-		\Doctrine\ORM\EntityManager $entityManager
+
+    public function __construct(
+		\Doctrine\ORM\EntityManager $entityManager,
+        \App\Auth\User\UserExchangeService $userExchangeService
 	)
 	{
 		$this->entityManager = $entityManager;
-	}
+        $this->userExchangeService = $userExchangeService;
+    }
 
 
 	public function handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
@@ -30,16 +37,19 @@ class LoginHandler implements \Psr\Http\Server\RequestHandlerInterface
 		/** @var \App\Entity\User $user */
 		$user = $userRepository->findOneBy(['email' => $data['email']]);
 
-
 		if ( ! $user) {
-			return new JsonResponse(['message' => 'unkknown user'], 400);
+			return new JsonResponse(['message' => 'Unknown user'], 400);
 		}
 
 		if ( ! password_verify($data['password'], $user->getPassword())) {
-			return new JsonResponse(['message' => 'invalid credentials'], 400);
+			return new JsonResponse(['message' => 'Invalid credentials'], 400);
 		}
 
-		return new JsonResponse(['user' => $user, 'token' => \Firebase\JWT\JWT::encode($user, 'key')]);
+		return new JsonResponse(
+		    [
+                'token' => $this->userExchangeService->createToken($user),
+            ]
+        );
 	}
 
 

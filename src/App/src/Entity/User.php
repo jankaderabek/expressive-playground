@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="foo")
  */
-class User implements \JsonSerializable
+class User
 {
 
 	/**
@@ -34,30 +34,23 @@ class User implements \JsonSerializable
 
 	public function __construct(string $email, string $password)
 	{
-
 		$this->email = $email;
 		$this->password = $password;
 	}
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
 	public function getEmail(): string
 	{
 		return $this->email;
 	}
 
-
 	public function getPassword(): string
 	{
 		return $this->password;
 	}
 
-
-	public function jsonSerialize()
-	{
-		return [
-			'id' => $this->id,
-			'email' => $this->email,
-			'password' => $this->password,
-		];
-	}
 }

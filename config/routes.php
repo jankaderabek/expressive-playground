@@ -57,8 +57,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 		'/auth/profile',
 		[
 			Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware::class,
+			\App\Auth\Middleware\AutheticatedMiddleware::class,
 			\App\Auth\Handler\ProfileHandler::class
-		],
-		'auth.profile'
+		]
 	);
 };
