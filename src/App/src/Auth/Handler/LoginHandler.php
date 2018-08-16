@@ -32,16 +32,16 @@ class LoginHandler implements \Psr\Http\Server\RequestHandlerInterface
     public function handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
         $userRepository = $this->entityManager->getRepository(\App\Entity\User::class);
-        $data = $request->getParsedBody();
+        $loginRequest = new LoginRequest($request->getParsedBody());
 
         /** @var \App\Entity\User $user */
-        $user = $userRepository->findOneBy(['email' => $data['email']]);
+        $user = $userRepository->findOneBy(['email' => $loginRequest->getEmail()]);
 
         if (!$user) {
             return new JsonResponse(['message' => 'Unknown user'], 400);
         }
 
-        if (!password_verify($data['password'], $user->getPassword())) {
+        if (!password_verify($loginRequest->getPassword(), $user->getPassword())) {
             return new JsonResponse(['message' => 'Invalid credentials'], 400);
         }
 
