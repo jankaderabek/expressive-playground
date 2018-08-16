@@ -3,7 +3,6 @@
 
 namespace App\Auth\User;
 
-
 class UserExchangeService
 {
 
@@ -20,8 +19,8 @@ class UserExchangeService
     public function __construct(
         \Doctrine\ORM\EntityManager $entityManager,
         AuthenticatedUserTokenService $authenticatedUserTokenService
-    )
-    {
+    ) {
+
         $this->authenticatedUserTokenService = $authenticatedUserTokenService;
         $this->userRepository = $entityManager->getRepository(\App\Entity\User::class);
     }
@@ -47,5 +46,4 @@ class UserExchangeService
 
         return $user;
     }
-
 }

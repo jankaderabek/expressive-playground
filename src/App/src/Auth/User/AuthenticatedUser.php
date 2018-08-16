@@ -18,8 +18,8 @@ class AuthenticatedUser implements \JsonSerializable
     public function __construct(
         int $id,
         string $email
-    )
-    {
+    ) {
+
         $this->id = $id;
         $this->email = $email;
     }

@@ -15,8 +15,8 @@ class RegisterHandler implements \Psr\Http\Server\RequestHandlerInterface
 
     public function __construct(
         \Doctrine\ORM\EntityManager $entityManager
-    )
-    {
+    ) {
+
         $this->entityManager = $entityManager;
     }
 
@@ -41,5 +41,4 @@ class RegisterHandler implements \Psr\Http\Server\RequestHandlerInterface
 
         return new JsonResponse(['status' => 'success']);
     }
-
 }

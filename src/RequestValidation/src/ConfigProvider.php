@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace RequestValidation;
+
 use RequestValidation\Middleware\InvalidRequestErrorHandler;
 use Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
 

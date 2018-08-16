@@ -22,8 +22,8 @@ class LoginHandler implements \Psr\Http\Server\RequestHandlerInterface
     public function __construct(
         \Doctrine\ORM\EntityManager $entityManager,
         \App\Auth\User\UserExchangeService $userExchangeService
-    )
-    {
+    ) {
+
         $this->entityManager = $entityManager;
         $this->userExchangeService = $userExchangeService;
     }
@@ -51,6 +51,4 @@ class LoginHandler implements \Psr\Http\Server\RequestHandlerInterface
             ]
         );
     }
-
-
 }

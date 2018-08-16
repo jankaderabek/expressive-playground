@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
+
 /**
  * The configuration provider for the App module
  *
@@ -34,12 +36,12 @@ class ConfigProvider
         return [
             'factories' => [
                 Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
-                \App\Auth\Handler\RegisterHandler::class => \Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory::class,
-                \App\Auth\Handler\LoginHandler::class => \Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory::class,
-                \App\Auth\Handler\ProfileHandler::class => \Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory::class,
-                \App\Auth\Middleware\AutheticatedMiddleware::class => \Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory::class,
-                \App\Auth\User\AuthenticatedUserTokenService::class => \Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory::class,
-                \App\Auth\User\UserExchangeService::class => \Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory::class
+                \App\Auth\Handler\RegisterHandler::class => ReflectionBasedAbstractFactory::class,
+                \App\Auth\Handler\LoginHandler::class => ReflectionBasedAbstractFactory::class,
+                \App\Auth\Handler\ProfileHandler::class => ReflectionBasedAbstractFactory::class,
+                \App\Auth\Middleware\AuthenticatedMiddleware::class => ReflectionBasedAbstractFactory::class,
+                \App\Auth\User\AuthenticatedUserTokenService::class => ReflectionBasedAbstractFactory::class,
+                \App\Auth\User\UserExchangeService::class => ReflectionBasedAbstractFactory::class
             ],
         ];
     }

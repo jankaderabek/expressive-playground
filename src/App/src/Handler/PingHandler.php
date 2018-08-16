@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace App\Handler;
 
@@ -13,19 +11,19 @@ use App;
 class PingHandler implements RequestHandlerInterface
 {
 
-	/**
-	 * @var \Doctrine\ORM\EntityManager
-	 */
-	private $entityManager;
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $entityManager;
 
 
-	public function __construct(\Doctrine\ORM\EntityManager $entityManager)
-	{
-		$this->entityManager = $entityManager;
-	}
+    public function __construct(\Doctrine\ORM\EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
 
-	public function handle(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         return new JsonResponse(['ack' => (new \DateTime())->format('Y-m-d H:i:s')]);
     }

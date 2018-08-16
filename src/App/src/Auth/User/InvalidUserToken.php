@@ -3,7 +3,6 @@
 
 namespace App\Auth\User;
 
-
 class InvalidUserToken extends \Exception
 {
 

@@ -35,5 +35,4 @@ abstract class AbstractValidRequest
     }
 
     abstract protected function getConstraints(): array;
-
 }

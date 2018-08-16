@@ -6,7 +6,6 @@ namespace App\Auth\Handler;
 use RequestValidation\Model\AbstractValidRequest;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 final class LoginRequest extends AbstractValidRequest
 {
 
@@ -43,5 +42,4 @@ final class LoginRequest extends AbstractValidRequest
 
         ];
     }
-
 }

@@ -17,5 +17,4 @@ class RequestDataConstraintViolation extends \Exception
         parent::__construct((string) $violations);
         $this->violations = $violations;
     }
-
 }

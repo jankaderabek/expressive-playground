@@ -3,7 +3,6 @@
 
 namespace App\Auth\User;
 
-
 class AuthenticatedUserTokenService
 {
 
@@ -31,5 +30,4 @@ class AuthenticatedUserTokenService
             $decodedIdentity->email
         );
     }
-
 }

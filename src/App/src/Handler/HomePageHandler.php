@@ -20,9 +20,9 @@ class HomePageHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
-		return new JsonResponse([
-			'welcome' => 'Congratulations! You have installed the zend-expressive skeleton application.',
-			'docsUrl' => 'https://docs.zendframework.com/zend-expressive/',
-		]);
+        return new JsonResponse([
+            'welcome' => 'Congratulations! You have installed the zend-expressive skeleton application.',
+            'docsUrl' => 'https://docs.zendframework.com/zend-expressive/',
+        ]);
     }
 }

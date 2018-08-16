@@ -17,6 +17,4 @@ class ProfileHandler implements \Psr\Http\Server\RequestHandlerInterface
             ]
         );
     }
-
-
 }

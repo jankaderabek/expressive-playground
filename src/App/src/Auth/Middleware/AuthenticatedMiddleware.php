@@ -2,9 +2,12 @@
 
 namespace App\Auth\Middleware;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
-class AutheticatedMiddleware implements \Psr\Http\Server\MiddlewareInterface
+class AuthenticatedMiddleware implements \Psr\Http\Server\MiddlewareInterface
 {
 
 
@@ -15,12 +18,12 @@ class AutheticatedMiddleware implements \Psr\Http\Server\MiddlewareInterface
 
     public function __construct(
         \App\Auth\User\UserExchangeService $userExchangeService
-    )
-    {
+    ) {
+
         $this->userExchangeService = $userExchangeService;
     }
 
-    public function process(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Server\RequestHandlerInterface $handler): \Psr\Http\Message\ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $authorizationHeaders = $request->getHeader('Authorization');
         $authorizationHeader = current($authorizationHeaders);
@@ -55,9 +58,4 @@ class AutheticatedMiddleware implements \Psr\Http\Server\MiddlewareInterface
     {
         return new JsonResponse(['message' => 'Unauthorized user' . $details], 401);
     }
-
 }
-
-
-
-
