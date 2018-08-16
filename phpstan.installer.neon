@@ -1,0 +1,12 @@
+parameters:
+	fileExtensions:
+		# Standard php files and .dist config files
+		- php
+		- dist
+	excludes_analyse:
+		- src/ExpressiveInstaller/Resources/src/ConfigProvider.flat.php
+		- src/ExpressiveInstaller/Resources/src/ConfigProvider.modular.php
+	reportUnmatchedIgnoredErrors: true
+	ignoreErrors:
+		- '#Class App\\ConfigProvider not found#'
+		- '#Class Zend\\Expressive\\Swoole\\ConfigProvider not found#'
