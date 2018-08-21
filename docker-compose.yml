@@ -11,6 +11,10 @@ services:
      - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
     environment:
       XDEBUG_CONFIG: remote_host=docker.for.mac.localhost
+    depends_on:
+    - database
+    links:
+     - database
 
   database:
     image: mariadb:latest
