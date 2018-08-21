@@ -3,7 +3,7 @@
 namespace RequestValidationTest\Model;
 
 use RequestValidation\Model\AbstractValidRequest;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints;
 
 final class ValidatedRequest extends AbstractValidRequest
 {
@@ -11,22 +11,22 @@ final class ValidatedRequest extends AbstractValidRequest
     /**
      * @var string
      */
-    protected $requiredField;
+    protected $email;
 
     public function __construct(array $requestData)
     {
         parent::__construct($requestData);
     }
 
-    public function getRequiredField(): string
+    public function getEmail(): string
     {
-        return $this->requiredField;
+        return $this->email;
     }
 
     protected function getConstraints(): array
     {
         return [
-            'requiredField' => new NotBlank(),
+            'email' => [new Constraints\Type('string'), new Constraints\Email(), new Constraints\NotBlank()],
         ];
     }
 

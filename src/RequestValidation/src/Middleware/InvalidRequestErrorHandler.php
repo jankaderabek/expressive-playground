@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use RequestValidation\Model\RequestDataConstraintViolation;
-use function var_dump;
+use RequestValidation\Model\RequestFieldViolation;
 use Zend\Diactoros\Response\JsonResponse;
 
 class InvalidRequestErrorHandler implements \Psr\Http\Server\MiddlewareInterface
@@ -28,7 +28,12 @@ class InvalidRequestErrorHandler implements \Psr\Http\Server\MiddlewareInterface
         return new JsonResponse(
             [
                 'status' => 'error',
-                'message' => $violation->getMessage(),
+                'message' => array_map(function (RequestFieldViolation $requestFieldViolation) {
+                    return [
+                        'property' => $requestFieldViolation->getFieldName(),
+                        'message' => $requestFieldViolation->getConstraintViolation()->getMessage()
+                    ];
+                }, $violation->getViolations()),
             ],
             400
         );

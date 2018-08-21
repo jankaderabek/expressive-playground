@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use RequestValidation\Model\RequestDataConstraintViolation;
-use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\ConstraintViolationInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use RequestValidation\Middleware\InvalidRequestErrorHandler;
 
@@ -17,27 +17,30 @@ class InvalidRequestErrorHandlerTest extends TestCase
     public function testProcessWithConstraintViolationThrown()
     {
         $invalidRequestErrorHandler = new InvalidRequestErrorHandler();
-
-        $violationsList = $this->prophesize(ConstraintViolationList::class);
-        $violationsList->__toString()->willReturn("Hello world");
+        $violation = $this->prophesize(ConstraintViolationInterface::class);
 
         $response = $invalidRequestErrorHandler->process(
             $this->prophesize(ServerRequestInterface::class)->reveal(),
-            new class($violationsList->reveal()) implements RequestHandlerInterface {
+            new class($violation->reveal()) implements RequestHandlerInterface {
 
                 /**
-                 * @var ConstraintViolationList
+                 * @var ConstraintViolationInterface
                  */
-                private $violationList;
+                private $violation;
 
-                public function __construct(ConstraintViolationList $prophetviolationList)
+                public function __construct(ConstraintViolationInterface $violation)
                 {
-                    $this->violationList = $prophetviolationList;
+                    $this->violation = $violation;
                 }
 
                 public function handle(ServerRequestInterface $request): ResponseInterface
                 {
-                    throw new RequestDataConstraintViolation($this->violationList);
+                    throw new RequestDataConstraintViolation(
+                        new \RequestValidation\Model\RequestFieldViolation(
+                            "test field",
+                            $this->violation
+                        )
+                    );
                 }
             }
         );

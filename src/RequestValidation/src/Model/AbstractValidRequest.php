@@ -2,8 +2,8 @@
 
 namespace RequestValidation\Model;
 
+use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validation;
-use function var_dump;
 
 abstract class AbstractValidRequest
 {
@@ -22,15 +22,27 @@ abstract class AbstractValidRequest
     private function mapData(array $requestData): void
     {
         $validator = Validation::createValidator();
+        $constraints = \Tightenco\Collect\Support\Collection::make($this->getConstraints());
 
-        foreach ($this->getConstraints() as $propertyName => $constraints) {
-            $violations = $validator->validate($requestData[$propertyName], $constraints);
+        $violations = $constraints
+            ->map(function ($fieldConstraints, $propertyName) use ($validator, $requestData) {
+                $violations = $validator->validate($requestData[$propertyName], $fieldConstraints);
+                $violations = \Tightenco\Collect\Support\Collection::make($violations);
 
-            if (count($violations)) {
-                throw new RequestDataConstraintViolation($violations);
-            }
+                $violations = $violations
+                    ->map(function (ConstraintViolationInterface $constraintViolation) use ($propertyName) {
+                        return new RequestFieldViolation($propertyName, $constraintViolation);
+                    })
+                    ->all();
 
-            $this->{$propertyName} = $requestData[$propertyName];
+                $this->{$propertyName} = $requestData[$propertyName];
+
+                return $violations;
+            })
+            ->flatten();
+
+        if ($violations->isNotEmpty()) {
+            throw new RequestDataConstraintViolation(...$violations->all());
         }
     }
 

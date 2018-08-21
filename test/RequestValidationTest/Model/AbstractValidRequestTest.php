@@ -10,16 +10,20 @@ class AbstractValidRequestTest extends TestCase
 
     public function testCreateRequestWithMissingRequiredField()
     {
-        $this->expectException(RequestDataConstraintViolation::class);
+        try {
+            (new ValidatedRequest(['email' => 1]));
+        } catch (RequestDataConstraintViolation $e) {
+        }
 
-        (new ValidatedRequest([]));
+        $this->assertInstanceOf(RequestDataConstraintViolation::class, $e);
+        $this->assertCount(2, $e->getViolations());
     }
 
     public function testCreateRequestWithValidData()
     {
-        $validatedRequest = new ValidatedRequest(['requiredField' => 'some string']);
+        $validatedRequest = new ValidatedRequest(['email' => 'email@gmail.com']);
 
-        $this->assertEquals('some string', $validatedRequest->getRequiredField());
+        $this->assertEquals('email@gmail.com', $validatedRequest->getEmail());
     }
 
 }

@@ -12,9 +12,17 @@ class RequestDataConstraintViolation extends \Exception
      */
     private $violations;
 
-    public function __construct(ConstraintViolationListInterface $violations)
+    public function __construct(RequestFieldViolation ...$violations)
     {
         parent::__construct((string) $violations);
         $this->violations = $violations;
+    }
+
+    /**
+     * @return RequestFieldViolation[]
+     */
+    public function getViolations(): array
+    {
+        return $this->violations;
     }
 }
