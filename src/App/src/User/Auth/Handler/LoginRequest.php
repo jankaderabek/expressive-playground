@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 
-namespace App\Auth\Handler;
+namespace App\User\Auth\Handler;
 
 use RequestValidation\Model\AbstractValidRequest;
 use Symfony\Component\Validator\Constraints as Assert;

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Auth\User;
+namespace App\User\Auth\Model;
 
 class AuthenticatedUser implements \JsonSerializable
 {

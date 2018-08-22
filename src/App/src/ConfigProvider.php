@@ -36,12 +36,12 @@ class ConfigProvider
         return [
             'factories' => [
                 Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
-                \App\Auth\Handler\RegisterHandler::class => ReflectionBasedAbstractFactory::class,
-                \App\Auth\Handler\LoginHandler::class => ReflectionBasedAbstractFactory::class,
-                \App\Auth\Handler\ProfileHandler::class => ReflectionBasedAbstractFactory::class,
-                \App\Auth\Middleware\AuthenticatedMiddleware::class => ReflectionBasedAbstractFactory::class,
-                \App\Auth\User\AuthenticatedUserTokenService::class => ReflectionBasedAbstractFactory::class,
-                \App\Auth\User\UserExchangeService::class => ReflectionBasedAbstractFactory::class
+                \App\User\Auth\Handler\RegisterHandler::class => ReflectionBasedAbstractFactory::class,
+                \App\User\Auth\Handler\LoginHandler::class => ReflectionBasedAbstractFactory::class,
+                \App\User\Auth\Handler\ProfileHandler::class => ReflectionBasedAbstractFactory::class,
+                \App\User\Auth\Middleware\AuthenticatedMiddleware::class => ReflectionBasedAbstractFactory::class,
+                \App\User\Auth\Model\AuthenticatedUserTokenService::class => ReflectionBasedAbstractFactory::class,
+                \App\User\Auth\Model\UserExchangeService::class => ReflectionBasedAbstractFactory::class
             ],
         ];
     }

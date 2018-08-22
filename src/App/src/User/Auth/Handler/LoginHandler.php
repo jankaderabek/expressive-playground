@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Auth\Handler;
+namespace App\User\Auth\Handler;
 
 use Zend\Diactoros\Response\JsonResponse;
 
@@ -14,14 +14,14 @@ class LoginHandler implements \Psr\Http\Server\RequestHandlerInterface
     private $entityManager;
 
     /**
-     * @var \App\Auth\User\UserExchangeService
+     * @var \App\User\Auth\Model\UserExchangeService
      */
     private $userExchangeService;
 
 
     public function __construct(
         \Doctrine\ORM\EntityManager $entityManager,
-        \App\Auth\User\UserExchangeService $userExchangeService
+        \App\User\Auth\Model\UserExchangeService $userExchangeService
     ) {
 
         $this->entityManager = $entityManager;
