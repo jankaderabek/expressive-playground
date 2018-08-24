@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\User\Authentication\Middleware\AuthenticatedMiddleware;
+use App\User\Authentication\Model\ApiTransfer\AuthenticatedUserTokenService;
+use App\User\Authentication\Model\ApiTransfer\UserExchangeService;
 use Zend\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
 
 /**
@@ -36,12 +39,13 @@ class ConfigProvider
         return [
             'factories' => [
                 Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
-                \App\User\Auth\Handler\RegisterHandler::class => ReflectionBasedAbstractFactory::class,
-                \App\User\Auth\Handler\LoginHandler::class => ReflectionBasedAbstractFactory::class,
-                \App\User\Auth\Handler\ProfileHandler::class => ReflectionBasedAbstractFactory::class,
-                \App\User\Auth\Middleware\AuthenticatedMiddleware::class => ReflectionBasedAbstractFactory::class,
-                \App\User\Auth\Model\AuthenticatedUserTokenService::class => ReflectionBasedAbstractFactory::class,
-                \App\User\Auth\Model\UserExchangeService::class => ReflectionBasedAbstractFactory::class
+                \App\User\Authentication\Handler\RegisterHandler::class => ReflectionBasedAbstractFactory::class,
+                \App\User\Authentication\Handler\LoginHandler::class => ReflectionBasedAbstractFactory::class,
+                \App\User\Authentication\Handler\ProfileHandler::class => ReflectionBasedAbstractFactory::class,
+                AuthenticatedMiddleware::class => ReflectionBasedAbstractFactory::class,
+                AuthenticatedUserTokenService::class => ReflectionBasedAbstractFactory::class,
+                UserExchangeService::class => ReflectionBasedAbstractFactory::class,
+                \App\User\Model\UserRepository::class => ReflectionBasedAbstractFactory::class
             ],
         ];
     }

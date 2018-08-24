@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\User\Auth\Handler;
+namespace App\User\Authentication\Handler;
 
 use Zend\Diactoros\Response\JsonResponse;
 
@@ -11,7 +11,7 @@ class ProfileHandler implements \Psr\Http\Server\RequestHandlerInterface
     {
         return new JsonResponse(
             [
-                'data' => \App\User\Auth\Model\AuthenticatedUser::fromEntity(
+                'data' => \App\User\Authentication\Model\ApiTransfer\AuthenticatedUser::fromEntity(
                     $request->getAttribute(\App\Entity\User::class)
                 )
             ]

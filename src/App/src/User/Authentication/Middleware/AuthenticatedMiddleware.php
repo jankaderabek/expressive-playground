@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\User\Auth\Middleware;
+namespace App\User\Authentication\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -12,12 +12,12 @@ class AuthenticatedMiddleware implements \Psr\Http\Server\MiddlewareInterface
 
 
     /**
-     * @var \App\User\Auth\Model\UserExchangeService
+     * @var \App\User\Authentication\Model\ApiTransfer\UserExchangeService
      */
     private $userExchangeService;
 
     public function __construct(
-        \App\User\Auth\Model\UserExchangeService $userExchangeService
+        \App\User\Authentication\Model\ApiTransfer\UserExchangeService $userExchangeService
     ) {
 
         $this->userExchangeService = $userExchangeService;
@@ -36,7 +36,7 @@ class AuthenticatedMiddleware implements \Psr\Http\Server\MiddlewareInterface
 
         try {
             $user = $this->userExchangeService->createFromToken($authorizationToken);
-        } catch (\App\User\Auth\Model\InvalidUserToken $e) {
+        } catch (\App\User\Authentication\Model\ApiTransfer\InvalidUserToken $e) {
             return $this->createUnauthorizedResponse("Invalid token");
         }
 

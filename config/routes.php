@@ -40,7 +40,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 		'/auth/register',
 		[
 			Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware::class,
-			\App\User\Auth\Handler\RegisterHandler::class
+			\App\User\Authentication\Handler\RegisterHandler::class
 		]
 	);
 
@@ -48,7 +48,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 		'/auth/login',
 		[
 			Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware::class,
-			\App\User\Auth\Handler\LoginHandler::class
+			\App\User\Authentication\Handler\LoginHandler::class
 		],
 		'auth.login'
 	);
@@ -57,8 +57,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 		'/auth/profile',
 		[
 			Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware::class,
-			\App\User\Auth\Middleware\AuthenticatedMiddleware::class,
-			\App\User\Auth\Handler\ProfileHandler::class
+			\App\User\Authentication\Middleware\AuthenticatedMiddleware::class,
+			\App\User\Authentication\Handler\ProfileHandler::class
 		]
 	);
 };
