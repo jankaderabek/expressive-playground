@@ -2,42 +2,29 @@
 
 namespace App\User\Authentication\Handler;
 
+use App\User\Authentication\Model\Registration\UserRegistrar;
 use Zend\Diactoros\Response\JsonResponse;
 
 class RegisterHandler implements \Psr\Http\Server\RequestHandlerInterface
 {
-
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * @var UserRegistrar
      */
-    private $entityManager;
-
+    private $userRegistrar;
 
     public function __construct(
-        \Doctrine\ORM\EntityManager $entityManager
+        UserRegistrar $userRegistrar
     ) {
 
-        $this->entityManager = $entityManager;
+        $this->userRegistrar = $userRegistrar;
     }
 
 
     public function handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
-        $userRepository = $this->entityManager->getRepository(\App\Entity\User::class);
         $data = $request->getParsedBody();
 
-
-        if ($userRepository->findOneBy(['email' => $data['email']])) {
-            return new JsonResponse(['message' => 'Email is already used'], 400);
-        }
-
-        $user = new \App\Entity\User(
-            $data['email'],
-            password_hash($data['password'], PASSWORD_ARGON2I)
-        );
-
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $this->userRegistrar->register($data['email'], $data['password']);
 
         return new JsonResponse(['status' => 'success']);
     }
