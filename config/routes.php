@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use App\User\Authentication\Endpoint\Login\LoginHandler;
+use App\User\Authentication\Endpoint\Login\LoginRequest;
 use Psr\Container\ContainerInterface;
+use RequestValidation\Middleware\CallableMiddlewareRequestFactory;
 use Zend\Expressive\Application;
 use Zend\Expressive\MiddlewareFactory;
 
@@ -21,6 +23,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->post(
         '/auth/login',
         [
+            CallableMiddlewareRequestFactory::create(LoginRequest::class),
             LoginHandler::class,
         ],
         'auth.login'

@@ -28,7 +28,8 @@ class LoginHandler implements \Psr\Http\Server\RequestHandlerInterface
 
     public function handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
-        $loginRequest = new LoginRequest($request->getParsedBody());
+        /** @var LoginRequest $loginRequest */
+        $loginRequest = $request->getAttribute(LoginRequest::class);
 
         try {
             $user = $this->authenticator->authenticate($loginRequest->getEmail(), $loginRequest->getPassword());
