@@ -1,7 +1,6 @@
-<?php /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
-namespace App\User\Authentication\Handler;
+namespace App\User\Authentication\Endpoint\Login;
 
 use Zend\Diactoros\Response\JsonResponse;
 
@@ -31,7 +30,11 @@ class LoginHandler implements \Psr\Http\Server\RequestHandlerInterface
     {
         $loginRequest = new LoginRequest($request->getParsedBody());
 
-        $user = $this->authenticator->authenticate($loginRequest->getEmail(), $loginRequest->getPassword());
+        try {
+            $user = $this->authenticator->authenticate($loginRequest->getEmail(), $loginRequest->getPassword());
+        } catch (\App\User\Authentication\Model\Authenticator\Exception\InvalidCredentials $exception) {
+            return new JsonResponse(['message' => 'Invalid credentials'], 400);
+        }
 
         return new JsonResponse(['token' => $this->userExchangeService->createToken($user)]);
     }

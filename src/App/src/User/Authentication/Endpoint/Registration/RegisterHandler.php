@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\User\Authentication\Handler\Register;
+namespace App\User\Authentication\Endpoint\Registration;
 
 use App\User\Authentication\Model\Registration\EmailAlreadyRegistered;
 use App\User\Authentication\Model\Registration\UserRegistrar;

@@ -2,7 +2,7 @@
 
 namespace App\User\Authentication\Model\Authenticator\Exception;
 
-interface InvalidCredentials
+interface InvalidCredentials extends \Throwable
 {
 
 }

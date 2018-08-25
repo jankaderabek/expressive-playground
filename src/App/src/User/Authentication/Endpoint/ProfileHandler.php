@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\User\Authentication\Handler;
+namespace App\User\Authentication\Endpoint;
 
 use Zend\Diactoros\Response\JsonResponse;
 

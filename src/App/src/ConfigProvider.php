@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\User\Authentication\Handler\Register\RegisterHandler;
+use App\User\Authentication\Endpoint\Login\LoginHandler;
+use App\User\Authentication\Endpoint\ProfileHandler;
+use App\User\Authentication\Endpoint\Registration\RegisterHandler;
 use App\User\Authentication\Middleware\AuthenticatedMiddleware;
 use App\User\Authentication\Model\ApiTransfer\AuthenticatedUserTokenService;
 use App\User\Authentication\Model\ApiTransfer\UserExchangeService;
@@ -45,8 +47,8 @@ class ConfigProvider
             'factories' => [
                 Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
                 RegisterHandler::class => ReflectionBasedAbstractFactory::class,
-                \App\User\Authentication\Handler\LoginHandler::class => ReflectionBasedAbstractFactory::class,
-                \App\User\Authentication\Handler\ProfileHandler::class => ReflectionBasedAbstractFactory::class,
+                LoginHandler::class => ReflectionBasedAbstractFactory::class,
+                ProfileHandler::class => ReflectionBasedAbstractFactory::class,
                 AuthenticatedMiddleware::class => ReflectionBasedAbstractFactory::class,
                 AuthenticatedUserTokenService::class => ReflectionBasedAbstractFactory::class,
                 UserExchangeService::class => ReflectionBasedAbstractFactory::class,

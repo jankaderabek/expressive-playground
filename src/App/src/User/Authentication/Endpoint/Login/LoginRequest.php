@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace App\User\Authentication\Handler\Register;
+namespace App\User\Authentication\Endpoint\Login;
 
 use RequestValidation\Model\AbstractValidRequest;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class RegistrationRequest extends AbstractValidRequest
+final class LoginRequest extends AbstractValidRequest
 {
+
     /**
      * @var string
      */
