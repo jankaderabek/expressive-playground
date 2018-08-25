@@ -40,7 +40,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 		'/auth/register',
 		[
 			Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware::class,
-			\App\User\Authentication\Handler\RegisterHandler::class
+			\App\User\Authentication\Handler\Register\RegisterHandler::class
 		]
 	);
 
