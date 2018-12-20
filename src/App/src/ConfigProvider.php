@@ -56,6 +56,9 @@ class ConfigProvider
                 UserRegistrar::class => ReflectionBasedAbstractFactory::class,
                 PasswordService::class => ReflectionBasedAbstractFactory::class,
                 Authenticator::class => ReflectionBasedAbstractFactory::class,
+                \App\Ticket\Model\TicketService::class => ReflectionBasedAbstractFactory::class,
+                \App\Ticket\Model\TicketFacade::class => ReflectionBasedAbstractFactory::class,
+                \App\Ticket\Endpoint\Create\CreateHandler::class => ReflectionBasedAbstractFactory::class,
             ],
         ];
     }

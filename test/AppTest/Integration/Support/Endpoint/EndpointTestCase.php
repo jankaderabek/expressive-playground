@@ -2,6 +2,8 @@
 
 namespace AppTest\Integration\Support\Endpoint;
 
+use App\User\Authentication\Model\ApiTransfer\UserExchangeService;
+use App\User\Authentication\Model\Registration\UserRegistrar;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use \PHPUnit\Framework\TestCase;
@@ -111,6 +113,22 @@ abstract class EndpointTestCase extends TestCase
 
         $schemaTool->dropDatabase();
         $schemaTool->createSchema($metadata);
+    }
+
+
+    protected function getUserAuthToken(): string
+    {
+        /** @var UserRegistrar $userRegistrar */
+        $userRegistrar = $this->container->get(UserRegistrar::class);
+
+        $user = $userRegistrar->register('test@user.com', 'Password123');
+
+        /** @var UserExchangeService $userExchangeService */
+        $userExchangeService = $this->container->get(UserExchangeService::class);
+
+        $userToken = $userExchangeService->createToken($user);
+
+        return 'Bearer ' . $userToken;
     }
 
 }

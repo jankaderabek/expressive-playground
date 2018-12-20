@@ -33,4 +33,12 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
             \App\User\Authentication\Endpoint\ProfileHandler::class,
         ]
     );
+
+    $app->post(
+        '/ticket/create',
+        [
+            \App\User\Authentication\Middleware\AuthenticatedMiddleware::class,
+            \App\Ticket\Endpoint\Create\CreateHandler::class,
+        ]
+    );
 };
