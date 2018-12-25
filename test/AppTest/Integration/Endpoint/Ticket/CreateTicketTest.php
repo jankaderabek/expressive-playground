@@ -7,7 +7,7 @@ class CreateTicketTest extends \AppTest\Integration\Support\Endpoint\EndpointTes
 
     public function testCreateUser()
     {
-        $userToken = $this->getUserAuthToken();
+        $userToken = $this->getUserAuthToken($this->registerTestUser());
 
         $request = $this
             ->createRequest('/ticket/create')

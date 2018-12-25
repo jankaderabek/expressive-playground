@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Ticket\Endpoint\Create\CreateHandler;
+use App\Ticket\Endpoint\Create\ListHandler;
 use App\User\Authentication\Endpoint\Login\LoginHandler;
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
@@ -34,11 +36,6 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         ]
     );
 
-    $app->post(
-        '/ticket/create',
-        [
-            \App\User\Authentication\Middleware\AuthenticatedMiddleware::class,
-            \App\Ticket\Endpoint\Create\CreateHandler::class,
-        ]
-    );
+    $app->post('/ticket/create', CreateHandler::class);
+    $app->get('/ticket/list', ListHandler::class);
 };

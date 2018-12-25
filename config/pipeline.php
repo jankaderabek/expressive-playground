@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\User\Authentication\Middleware\AuthenticatedMiddleware;
 use Psr\Container\ContainerInterface;
 use RequestValidation\Middleware\InvalidRequestErrorHandler;
 use Zend\Expressive\Application;
@@ -75,6 +76,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - route-based validation
     // - etc.
     $app->pipe(InvalidRequestErrorHandler::class);
+
+    $app->pipe('ticket', AuthenticatedMiddleware::class);
 
     // Register the dispatch middleware in the middleware pipeline
     $app->pipe(DispatchMiddleware::class);

@@ -5,6 +5,7 @@ namespace App\Ticket\Model;
 use App\Entity\User;
 use App\Ticket\Entity\Ticket;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 
 class TicketFacade
 {
@@ -18,12 +19,18 @@ class TicketFacade
      */
     private $ticketService;
 
+    /**
+     * @var EntityRepository
+     */
+    private $ticketRepository;
+
     public function __construct(
         EntityManager $entityManager,
         TicketService $ticketService
     ) {
         $this->entityManager = $entityManager;
         $this->ticketService = $ticketService;
+        $this->ticketRepository = $this->entityManager->getRepository(Ticket::class);
     }
 
     public function create(string $title, User $author): Ticket
@@ -35,4 +42,15 @@ class TicketFacade
 
         return $ticket;
     }
+
+    /**
+     * @return User[]|iterable
+     */
+    public function getAuthorsTickets(User $user): iterable
+    {
+        return $this->ticketRepository->findBy([
+            'author' => $user,
+        ]);
+    }
+
 }

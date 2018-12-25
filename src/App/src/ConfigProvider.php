@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Ticket\Endpoint\Create\CreateHandler;
+use App\Ticket\Endpoint\Create\ListHandler;
 use App\User\Authentication\Endpoint\Login\LoginHandler;
 use App\User\Authentication\Endpoint\ProfileHandler;
 use App\User\Authentication\Endpoint\Registration\RegisterHandler;
@@ -58,7 +60,8 @@ class ConfigProvider
                 Authenticator::class => ReflectionBasedAbstractFactory::class,
                 \App\Ticket\Model\TicketService::class => ReflectionBasedAbstractFactory::class,
                 \App\Ticket\Model\TicketFacade::class => ReflectionBasedAbstractFactory::class,
-                \App\Ticket\Endpoint\Create\CreateHandler::class => ReflectionBasedAbstractFactory::class,
+                CreateHandler::class => ReflectionBasedAbstractFactory::class,
+                ListHandler::class => ReflectionBasedAbstractFactory::class,
             ],
         ];
     }
