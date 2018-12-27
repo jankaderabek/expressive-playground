@@ -5,7 +5,7 @@ namespace AppTest\Integration\Endpoint\Ticket;
 class CreateTicketTest extends \AppTest\Integration\Support\Endpoint\EndpointTestCase
 {
 
-    public function testCreateUser()
+    public function testCreateTicket()
     {
         $userToken = $this->getUserAuthToken($this->registerTestUser());
 

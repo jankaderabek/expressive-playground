@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Ticket\Endpoint\Create;
+namespace App\Ticket\Endpoint\AuthorList;
 
 use App\Entity\User;
 use App\Ticket\Entity\Ticket;
@@ -35,6 +35,6 @@ class ListHandler implements RequestHandlerInterface
             })
         ;
 
-        return new JsonResponse(['tickets' => $tickets]);
+        return new JsonResponse(['tickets' => $tickets->toArray()]);
     }
 }

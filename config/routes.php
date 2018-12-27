@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Ticket\Endpoint\AuthorList\ListHandler;
 use App\Ticket\Endpoint\Create\CreateHandler;
-use App\Ticket\Endpoint\Create\ListHandler;
 use App\User\Authentication\Endpoint\Login\LoginHandler;
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Ticket\Endpoint\AuthorList\ListHandler;
 use App\Ticket\Endpoint\Create\CreateHandler;
-use App\Ticket\Endpoint\Create\ListHandler;
 use App\User\Authentication\Endpoint\Login\LoginHandler;
 use App\User\Authentication\Endpoint\ProfileHandler;
 use App\User\Authentication\Endpoint\Registration\RegisterHandler;

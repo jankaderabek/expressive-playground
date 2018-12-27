@@ -14,7 +14,7 @@ class ListTicketTest extends EndpointTestCase
 
         $request = $this
             ->createRequest('/ticket/list')
-            ->withMethod('GET')
+            ->withMethod('POST')
             ->withHeader('Authorization', $userToken)
         ;
 
