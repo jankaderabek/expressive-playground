@@ -7,7 +7,7 @@ use AppTest\Integration\Support\Endpoint\EndpointTestCase;
 class UserRegistrationTest extends EndpointTestCase
 {
 
-    public function testCreateUser()
+    public function testCreateUser(): void
     {
         $request = $this
             ->createRequest('/auth/register')

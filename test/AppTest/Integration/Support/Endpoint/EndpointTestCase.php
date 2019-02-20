@@ -49,28 +49,6 @@ abstract class EndpointTestCase extends TestCase
         $this->createApp();
     }
 
-    protected function send(RequestInterface $request): ResponseInterface
-    {
-        $this->request = $request;
-
-        $this->app->run();
-
-        return $this->emitter->getResponse();
-    }
-
-    protected function createRequest(string $path): ServerRequest
-    {
-        $request = new ServerRequest();
-        $uri = new Uri();
-
-        return $request->withUri($uri->withPath($path));
-    }
-
-    protected function getBody(ResponseInterface $response): ?array
-    {
-        return json_decode((string)$response->getBody(), true);
-    }
-
     private function createApp(): void
     {
         $container = require self::CONFIG_DIRECTORY . 'container.php';
@@ -116,6 +94,27 @@ abstract class EndpointTestCase extends TestCase
         $schemaTool->createSchema($metadata);
     }
 
+	protected function send(RequestInterface $request): ResponseInterface
+	{
+		$this->request = $request;
+
+		$this->app->run();
+
+		return $this->emitter->getResponse();
+	}
+
+	protected function createRequest(string $path): ServerRequest
+	{
+		$request = new ServerRequest();
+		$uri = new Uri();
+
+		return $request->withUri($uri->withPath($path));
+	}
+
+	protected function getBody(ResponseInterface $response): ?array
+	{
+		return json_decode((string)$response->getBody(), true);
+	}
 
     protected function getUserAuthToken(User $user): string
     {

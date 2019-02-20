@@ -36,7 +36,7 @@ class RegistrationRequest extends AbstractValidRequest
     {
         return [
             'email' => [new Assert\Type('string'), new Assert\Email(), new Assert\NotBlank()],
-            'password' => new Assert\Type('string'),
+            'password' => [new Assert\NotNull(), new Assert\Type('string')],
 
         ];
     }

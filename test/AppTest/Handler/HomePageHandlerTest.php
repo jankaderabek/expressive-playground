@@ -18,14 +18,20 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 class HomePageHandlerTest extends TestCase
 {
 
-    public function testReturnsJsonResponseWhenNoTemplateRendererProvided()
+    public function testReturnsJsonResponse()
     {
-        $homePage = new HomePageHandler();
+        $homePageHandler = new HomePageHandler();
 
-        $response = $homePage->handle(
-            $this->prophesize(ServerRequestInterface::class)->reveal()
+		$serverRequest = new \Zend\Diactoros\ServerRequest();
+		$serverRequest->withParsedBody([
+			'parameter' => 'value'
+		]);
+
+        $response = $homePageHandler->handle(
+			$serverRequest
         );
 
         $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertArrayHasKey('welcome', json_decode($response->getBody()->getContents(), TRUE));
     }
 }

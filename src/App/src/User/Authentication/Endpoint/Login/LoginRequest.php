@@ -36,9 +36,8 @@ final class LoginRequest extends AbstractValidRequest
     protected function getConstraints(): array
     {
         return [
-            'email' => [new Assert\Type('string'), new Assert\Email(), new Assert\NotBlank()],
-            'password' => new Assert\Type('string'),
-
+			'email' => [new Assert\NotNull(), new Assert\Type('string'), new Assert\Email()],
+			'password' => [new Assert\NotNull(), new Assert\Type('string')],
         ];
     }
 }
